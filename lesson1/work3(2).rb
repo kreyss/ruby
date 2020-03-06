@@ -9,9 +9,9 @@ c = gets.chomp.to_f
 
 if c==Math.sqrt(a*a+b*b) || b==Math.sqrt(a*a+c*c) || a==Math.sqrt(c*c+b*b)
 	p "треугольник прямоугольным"
-elsif a.to_f==b.to_f && a.to_f==c.to_f && c.to_f==b.to_f
+elsif a==b && a==c && c==b
   puts "треугольник равностороний"
-elsif a.to_f==b.to_f || b.to_f==c.to_f || c.to_f == a.to_f
+elsif a==b || b==c || c == a
   puts "треугольник равнобедренный"
 else 
   puts "все стороны разные"
