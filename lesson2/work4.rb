@@ -1,8 +1,6 @@
-alphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя"
-vowels = "ауоыиэяюёе"
-vowels_hash = {}
+vowels = ["а", "у", "о", "ы", "и", "э", "я", "ю", "ё", "е"]
+vowel_hash = {}
 
-for i in 0..vowels.length - 1
-  vowels_hash[vowels[i]] = alphabet.index(vowels[i]) + 1
+("а".."я").each_with_index do |later, index| vowel_hash[later] = index if vowels.include?(later)
 end
- print vowels_hash
+ print "#{vowel_hash}"
