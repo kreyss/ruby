@@ -1,116 +1,116 @@
 class Station
-	attr_reader :name, :trains
-	def initialize(name)
-		@name = name
-		@trains = []
-		puts "Создали станцию #{name}"
-	end
+  attr_reader :name, :trains
+  def initialize(name)
+@name = name
+    @trains = []
+    puts "Создали станцию #{name}"
+  end
 
-	def get_train(train)
-		trains << train 
-		puts "на станцию #{name} прибыл поезд № #{train.number}"
-	end
+  def get_train(train)
+    trains << train 
+    puts "на станцию #{name} прибыл поезд № #{train.number}"
+  end
 
-	def send_train(train)
-	  trains.delete(train)
-	  train.station	= nil
-	  puts "Со станции #{name} отправился поезд № #{train.number}"
-	end
+  def send_train(train)
+    trains.delete(train)
+    train.station = nil
+    puts "Со станции #{name} отправился поезд № #{train.number}"
+  end
 
-	def show_trains(type = nil)
-		if type
-			puts "Поезда на станции#{name} типо #{type}"
-			trains.each{ |train| puts train.number if train.type == type }
-		else 
-			puts "Поезда на станции#{name}"
-			trains.each{ |train| puts train.number }
-		end
-	end
+  def show_trains(type = nil)
+    if type
+      puts "Поезда на станции#{name} типо #{type}"
+      trains.each{ |train| puts train.number if train.type == type }
+    else 
+      puts "Поезда на станции#{name}"
+      trains.each{ |train| puts train.number }
+    end
+  end
 end
 class Route 
-	attr_accessor :stations, :from, :to
+  attr_accessor :stations, :from, :to
   
-	def initialize(from, to)
-		@stations = [from, to]
-		puts "Создан маршрут #{from.name} - #{to.name}"
-	end
-	def add_station(station)
+  def initialize(from, to)
+    @stations = [from, to]
+    puts "Создан маршрут #{from.name} - #{to.name}"
+  end
+  def add_station(station)
     self.stations.insert(-2, station)
-		puts "к маршруту #{stations.first.name} до #{stations.last.name} добавлена станция #{station.name}"
-	end
+    puts "к маршруту #{stations.first.name} до #{stations.last.name} добавлена станция #{station.name}"
+  end
 
-	def remove_station(station)
-		if [stations.first, stations.last].include?(station)
-			puts "Первую и последнюю станцию не можно удалять"
-		else 
-			self.stations.delete(station)
-			puts "Из маршрута #{stations.first.name} до #{stations.last.name} удалена #{station.name}"
-		end
-	end
-		def show_stations
-			puts "в маршруте #{stations.first.name} до #{stations.last.name} станции"
-			stations.each { |station| puts "#{station.name}" }
-		end
-	end
+  def remove_station(station)
+    if [stations.first, stations.last].include?(station)
+      puts "Первую и последнюю станцию не можно удалять"
+    else 
+      self.stations.delete(station)
+      puts "Из маршрута #{stations.first.name} до #{stations.last.name} удалена #{station.name}"
+    end
+  end
+    def show_stations
+      puts "в маршруте #{stations.first.name} до #{stations.last.name} станции"
+      stations.each { |station| puts "#{station.name}" }
+    end
+  end
 class Train
-	attr_accessor :speed, :number, :car_count, :route, :station
-	attr_reader :type
+  attr_accessor :speed, :number, :car_count, :route, :station
+  attr_reader :type
 
-	def initialize(number, type, car_count)
-		@number = number
-		@type = type
-		@car_count = car_count
-		@speed = 0
-		puts "Создан поезд #{number}. Тип #{type}. Количество вагонов #{car_count}"
-	end
-	def stop
-		self.speed = 0
-	end
+  def initialize(number, type, car_count)
+    @number = number
+    @type = type
+    @car_count = car_count
+    @speed = 0
+    puts "Создан поезд #{number}. Тип #{type}. Количество вагонов #{car_count}"
+  end
+  def stop
+    self.speed = 0
+  end
 
-	def add_car
-		if speed.zero?
-			self.car_count += 1
-			puts "К поезду #{number} добавили вагон. Теперь их #{car_count}"
-			else
-				puts "На ходу прицеплять вагон нельзя"
-			end
-	end
-	def remove_car
-		if car_count.zero?
-			puts "Вагонов уже не осталось"
-		elsif speed.zero?
+  def add_car
+    if speed.zero?
+      self.car_count += 1
+      puts "К поезду #{number} добавили вагон. Теперь их #{car_count}"
+      else
+        puts "На ходу прицеплять вагон нельзя"
+      end
+  end
+  def remove_car
+    if car_count.zero?
+      puts "Вагонов уже не осталось"
+    elsif speed.zero?
       self.car_count -= 1
       puts "От поезда #{number} отцепили вагон. Теперь их #{car_count}"
     else 
-    	puts "На ходу отцепить вагон нельзя"
-		end
-	end
-	def take_route(route)
-		self.route = route
-		puts "Поезд #{number} задан маршрут #{route.stations.first.name} до #{route.stations.last.name}"
-	end
+      puts "На ходу отцепить вагон нельзя"
+    end
+  end
+  def take_route(route)
+    self.route = route
+    puts "Поезд #{number} задан маршрут #{route.stations.first.name} до #{route.stations.last.name}"
+  end
   def go_to(station)
-  	if route.nil?
-  		puts "Без маршрута поезд ехать не может"
-  	elsif @station == station
-  		puts "Поезд #{@number} уже на станции #{station.name}"
-  	elsif  route.stations.include?(station)
-  		@station.send_train(self) if @station
-  		@station = station
-  		station.get_train(self)
-  	else 
-  		puts "Станция #{station.name} не входит в маршрут поезда #{number}"
-  	end
+    if route.nil?
+      puts "Без маршрута поезд ехать не может"
+    elsif @station == station
+      puts "Поезд #{@number} уже на станции #{station.name}"
+    elsif  route.stations.include?(station)
+      @station.send_train(self) if @station
+      @station = station
+      station.get_train(self)
+    else 
+      puts "Станция #{station.name} не входит в маршрут поезда #{number}"
+    end
   end
   def stations_around
-  	if route.nil?
-  		puts "маршрут не найден"
-  	else 
-  		station_index = route.stations.index(station)
-  		puts "сейчас поезд на#{station.name}"
-  		puts "Предыдущая станция #{route.stations[station_index - 1].name}" if station_index != 0
-  		puts "Следующая станция#{route.stations[station_index + 1].name}" if station_index != route.stations.size - 1
-  	end
+    if route.nil?
+      puts "маршрут не найден"
+    else 
+      station_index = route.stations.index(station)
+      puts "сейчас поезд на#{station.name}"
+      puts "Предыдущая станция #{route.stations[station_index - 1].name}" if station_index != 0
+      puts "Следующая станция#{route.stations[station_index + 1].name}" if station_index != route.stations.size - 1
+    end
   end
 end
 
