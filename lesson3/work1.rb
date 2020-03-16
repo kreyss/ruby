@@ -3,7 +3,7 @@ class Station
 	def initialize(name)
 		@name = name
 		@trains = []
-		puts "Сосдали станцию #{name}"
+		puts "Создали станцию #{name}"
 	end
 
 	def get_train(train)
@@ -20,10 +20,10 @@ class Station
 	def show_trains(type = nil)
 		if type
 			puts "Поезда на станции#{name} типо #{type}"
-			trains.each{|train| puts train.number if train.type == type}
+			trains.each{ |train| puts train.number if train.type == type }
 		else 
 			puts "Поезда на станции#{name}"
-			trains.each{|train| puts train.number}
+			trains.each{ |train| puts train.number }
 		end
 	end
 end
@@ -41,7 +41,7 @@ class Route
 
 	def remove_station(station)
 		if [stations.first, stations.last].include?(station)
-			puts "Первую и последнею старцию не можно удалять"
+			puts "Первую и последнюю станцию не можно удалять"
 		else 
 			self.stations.delete(station)
 			puts "Из маршрута #{stations.first.name} до #{stations.last.name} удалена #{station.name}"
@@ -49,7 +49,7 @@ class Route
 	end
 		def show_stations
 			puts "в маршруте #{stations.first.name} до #{stations.last.name} станции"
-			stations.each {|station| puts "#{station.name}"}
+			stations.each { |station| puts "#{station.name}" }
 		end
 	end
 class Train
