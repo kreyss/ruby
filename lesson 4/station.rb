@@ -3,7 +3,7 @@ class Station
   def initialize(name)
     @name = name
     @trains = []
-    puts "Сосдали станцию #{name}"
+    puts "Создали станцию #{name}"
   end
 
   def get_train(train)
@@ -13,7 +13,7 @@ class Station
 
   def send_train(train)
     trains.delete(train)
-    train.station	= nil
+    train.station = nil
     puts "Со станции #{name} отправился поезд № #{train.number}"
   end
 

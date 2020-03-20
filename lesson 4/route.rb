@@ -12,7 +12,7 @@ class Route
 
   def remove_station(station)
     if [stations.first, stations.last].include?(station)
-    puts "Первую и последнею старцию не можно удалять"
+    puts "Первую и последнюю станцию не можно удалять"
     else 
       self.stations.delete(station)
       puts "Из маршрута #{stations.first.name} до #{stations.last.name} удалена #{station.name}"
