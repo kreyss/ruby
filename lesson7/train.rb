@@ -35,7 +35,6 @@ class Train
   def add_car(car)
     raise "На ходу нельзя прицеплять вагоны!" unless speed.zero? 
     self.cars << car
-    puts "К поезду №#{number} прицепили вагон."
   rescue RuntimeError => e
     puts "Ошибка: #{e.message}" 
   end
@@ -44,14 +43,12 @@ class Train
     raise "На ходу нельзя отцеплять вагоны!" unless speed.zero? 
     raise "Такого вагона в этом поезде нет" if !cars.include?(car)
     self.cars.delete(car)
-    puts "От поезда №#{number} отцепили вагон."
   rescue RuntimeError => e
     puts "Ошибка: #{e.message}" 
   end
 
   def take_route(route)
     self.route = route
-    puts "Поезду №#{number} задан маршрут #{route.name}" 
   end
 
   def go_to(station)

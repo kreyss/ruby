@@ -8,7 +8,6 @@ class Route
 
   def add_station(station)
     stations.insert(-2, station) 
-    puts "К маршруту #{self.name} добавлена станция #{station.name}"
   end
 
   def remove_station(station)

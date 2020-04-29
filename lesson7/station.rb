@@ -19,13 +19,11 @@ class Station
   def get_train(train)
     raise "Поезд #{train.number} и так на станции #{name}" if @trains.include?(train)
     @trains << train
-    puts "На станцию #{name} прибыл поезд №#{train.number}"
   end
 
   def send_train(train)
     @trains.delete(train)
     train.station = nil
-    puts "Со станции #{name} отправился поезд №#{train.number}"
   end
 
   def iterate_trains(&block)
