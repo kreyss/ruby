@@ -30,7 +30,7 @@ class Station
 
   def iterate_trains(&block)
     raise "На станции нет поездов" if @trains.empty?
-    @trains.each{|train| block.call(train)}
+    @trains.each{|train| block.yield(train)}
   end
 
 protected
@@ -38,5 +38,4 @@ protected
   def validate!
     raise "Название станции не может быть пустым, попробуйте еще раз." if name.empty?
   end
-
 end

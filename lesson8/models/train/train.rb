@@ -81,7 +81,7 @@ class Train
 
   def iterate_cars(&block)
     raise "К поезду не прицеплено вагонов" if @cars.empty?
-    @cars.each{|car| block.call(car)}
+    @cars.each{|car| block.yield(car)}
   end
 
 private

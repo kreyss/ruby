@@ -27,5 +27,4 @@ class Route
   def name
     stations.first.name + " - " + stations.last.name
   end
-
 end
