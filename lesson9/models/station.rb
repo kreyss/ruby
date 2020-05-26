@@ -3,7 +3,7 @@
 class Station
   include InstanceCounter
   include Validation
-  @@stations = []
+  Station.instance_variable_get(:@stations)
   attr_reader :name
   validate :name, :presence
 

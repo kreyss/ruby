@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CargoTrain < Train
   validate :number, :presence
   validate :number, :format, TRAIN_NUMBER
@@ -6,9 +8,8 @@ class CargoTrain < Train
   end
 
   def add_car(car)
-    unless car.instance_of?(CargoCar)
-      raise 'К грузовому поезду можно прицеплять только грузовые вагоны'
-    end
+    raise 'К грузовому поезду можно прицеплять только грузовые вагоны' unless car.instance_of?(CargoCar)
+
     super(car)
   rescue RuntimeError => e
     puts "Ошибка: #{e.message}"

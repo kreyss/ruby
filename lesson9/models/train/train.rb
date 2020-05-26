@@ -7,7 +7,7 @@ class Train
 
   attr_accessor :speed, :number, :cars, :route, :station
   attr_reader :type
-  @@trains = {}
+  Train.instance_variable_get(:@trains)
   TRAIN_NUMBER = /^[a-z0-9]{3}-?[a-z0-9]{2}$/i.freeze
 
   def initialize(number, type)
@@ -59,9 +59,7 @@ class Train
   def go_to(station)
     raise 'Без маршрута поезд заблудится.' if route.nil?
     raise "Поезд №#{@number} и так на станции #{@station.name}" if @station == station
-    unless route.stations.include?(station)
-      raise "Станция #{station.name} не входит в маршрут поезда №#{number}"
-    end
+    raise "Станция #{station.name} не входит в маршрут поезда №#{number}" unless route.stations.include?(station)
 
     @station&.send_train(self)
     @station = station
@@ -76,9 +74,7 @@ class Train
     station_index = route.stations.index(station)
     puts "Сейчас поезд на станции #{station.name}."
     puts "Предыдущая станция - #{route.stations[station_index - 1].name}." if station_index != 0
-    if station_index != route.stations.size - 1
-      puts "Следующая - #{route.stations[station_index + 1].name}."
-    end
+    puts "Следующая - #{route.stations[station_index + 1].name}." if station_index != route.stations.size - 1
   rescue RuntimeError => e
     puts "Ошибка: #{e.message}"
   end

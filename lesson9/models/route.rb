@@ -13,9 +13,7 @@ class Route
   end
 
   def remove_station(station)
-    if [stations.first, stations.last].include?(station)
-      raise 'Первую и последнюю станции маршрута удалять нельзя!'
-    end
+    raise 'Первую и последнюю станции маршрута удалять нельзя!' if [stations.first, stations.last].include?(station)
 
     stations.delete(station)
     puts "Из маршрута #{name} удалена станция #{station.name}"

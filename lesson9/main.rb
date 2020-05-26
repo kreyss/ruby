@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'modules/instance_counter'
 require_relative 'modules/validation'
 require_relative 'modules/manufacturer'
@@ -46,10 +48,12 @@ end
 
 def add_car
   raise 'Сначала необходимо создать поезд' if Train.all.empty?
+
   puts 'К какому? (введите номер)'
   number = gets.chomp
   train = Train.find(number)
   raise 'Поезда с таким номером нет' if train.nil?
+
   if train.type == 'cargo'
     puts 'Введите объем вагона'
     size = gets.chomp.to_f
@@ -65,11 +69,13 @@ end
 
 def remove_car
   raise 'Сначала необходимо создать поезд' if Train.all.empty?
+
   puts 'От какого? (введите номер)'
   number = gets.chomp
   train = Train.find(number)
   raise 'Поезда с таким номером нет' if train.nil?
   raise 'У этого поезда и так нет вагонов' if train.cars.empty?
+
   train.remove_car(train.cars.last)
 rescue RuntimeError => e
   puts "Ошибка: #{e.message}"
@@ -78,14 +84,17 @@ end
 def train_to_station
   raise 'Сначала необходимо создать поезд' if Train.all.empty?
   raise 'Сначала необходимо создать станцию' if Station.all.empty?
+
   puts 'Какой поезд? (введите номер)'
   number = gets.chomp
   train = Train.find(number)
   raise 'Поезда с таким номером нет' if train.nil?
+
   puts 'На какую станцию? (название)'
   name = gets.chomp
   station = Station.all.detect { |stn| stn.name == name }
   raise 'Такой станции нет' if station.nil?
+
   station.get_train(train)
 rescue RuntimeError => e
   puts "Ошибка: #{e.message}"
@@ -93,6 +102,7 @@ end
 
 def stations_list
   raise 'Станций еще не создано' if Station.instances.nil?
+
   puts 'Список станций:'
   Station.all.each { |stn| puts stn.name }
 rescue RuntimeError => e
@@ -101,10 +111,12 @@ end
 
 def trains_list
   raise 'Сначала необходимо создать станцию' if Station.all.empty?
+
   puts 'На какой? (название)'
   name = gets.chomp
   station = Station.all.detect { |station| station.name == name }
   raise 'Такой станции нет' if station.nil?
+
   station.iterate_trains { |train| puts "№#{train.number} #{train.type} вагонов #{train.cars.count}" }
 rescue RuntimeError => e
   puts "Ошибка: #{e.message}"
@@ -112,10 +124,12 @@ end
 
 def cars_list
   raise 'Сначала необходимо создать поезд' if Train.all.empty?
+
   puts 'Введите номер поезда'
   number = gets.chomp
   train = Train.find(number)
   raise 'Поезда с таким номером нет' if train.nil?
+
   car_number = 0
   train.iterate_cars { |car| puts "№#{car_number += 1} #{train.type} свободно #{car.free}, занято #{car.filled}" }
 rescue RuntimeError => e
@@ -124,13 +138,16 @@ end
 
 def load_car
   raise 'Сначала необходимо создать поезд' if Train.all.empty?
+
   puts 'Введите номер поезда'
   number = gets.chomp
   train = Train.find(number)
   raise 'Поезда с таким номером нет' if train.nil?
+
   puts 'Введите номер вагона'
   car_number = gets.chomp.to_i
-  raise 'Такого вагона в поезде нет' if car_number > train.cars.size
+  raise 'Такого вагона в поезде нет ' if car_number > train.cars.size
+
   if train.type == 'cargo'
     puts 'Введите объем груза'
     train.cars[car_number - 1].load(gets.chomp.to_f)
