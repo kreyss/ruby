@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 module Validation
   def self.included(base)
     base.extend ClassMethods
