@@ -9,7 +9,7 @@ module Accessors
         instance_variable_set(var_name, value)
         @history ||= {}
         @history[name] ||= []
-        @history[name] << value
+        @history[value] << name
       end
       define_method("#{name}_history") { @history ? @history[name] : [] }
     end

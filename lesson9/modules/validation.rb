@@ -17,7 +17,10 @@ module Validation
 
   module InstanceMethods
     def validate!
-      self.class.validates.each { |val| send val[1].to_sym, instance_variable_get("@#{val[0]}".to_sym), val[2] }
+      self.class.validates.each do |value|
+        v = instance_variable_get("@#{value[0]}".to_sym)
+        send value[1].to_sym, v, value[2]
+      end
     end
 
     def valid?
