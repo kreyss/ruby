@@ -18,8 +18,8 @@ module Validation
   module InstanceMethods
     def validate!
       self.class.validates.each do |value|
-        v = instance_variable_get("@#{value[0]}".to_sym)
-        send value[1].to_sym, v, value[2]
+        v = instance_variable_get("@#{value[:attr]}".to_sym)
+        send(validate{value[:attr]}.to_sym, v, value[:options])
       end
     end
 
@@ -32,7 +32,7 @@ module Validation
 
     private
 
-    def presence(value, _validate_options)
+    def presence(value, validate_options)
       raise 'Значение не может быть пустым' if value.empty?
     end
 
