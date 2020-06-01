@@ -1,0 +1,26 @@
+AllCops:
+  Exclude:
+    - 'main.rb'
+  DisplayCopNames: true
+  StyleGuideCopsOnly: false
+
+Metrics/CyclomaticComplexity:
+  Max: 10
+
+Metrics/PerceivedComplexity:
+  Max: 10
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 120
+
+Metrics/MethodLength:
+  Max: 30
+
+Metrics/AbcSize:
+  Max: 30
+
+Style/ClassVars:
+  Enabled: false
