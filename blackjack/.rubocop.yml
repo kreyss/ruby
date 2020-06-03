@@ -24,3 +24,9 @@ Metrics/AbcSize:
 
 Style/ClassVars:
   Enabled: false
+
+Style/NumericPredicate:
+ Enabled: false
+
+Style/GuardClause:
+ Enabled: false
